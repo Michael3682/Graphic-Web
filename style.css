@@ -1,0 +1,160 @@
+/* ----------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap');
+
+@keyframes spin1 {
+    from {
+        transform: rotate(-10deg) rotateX(40deg) rotateY(0deg);
+    }
+
+    to {
+        transform: rotate(-10deg) rotateX(40deg) rotateY(360deg);
+    }
+}
+
+/* ----------------------- */
+
+
+/* -----GLOBAL----- */
+:root {
+    --primary: rgb(15, 15, 15);
+}
+
+* {
+    color: white;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto Flex';
+    font-weight: 300;
+}
+
+/* ---------------- */
+
+
+/* -----HOME PAGE----- */
+header {
+    height: 100vh;
+    text-transform: uppercase;
+
+    & nav {
+        position: fixed;
+        width: 100%;
+        padding: 5px 50px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        & .company-brand {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+
+            & img {
+                height: 50px;
+                width: 50px;
+                filter: invert(100%);
+                opacity: .75;
+            }
+
+            & p {
+                font-size: 1.2em;
+                color: hsl(0, 0%, 75%);
+                font-weight: bold;
+            }
+        }
+
+        & .nav-btns {
+            display: flex;
+            justify-content: space-around;
+            width: 50%;
+
+            & a {
+                text-decoration: none;
+                font-weight: 100;
+            }
+        }
+    }
+
+    & .home-page-container {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+
+        & * {
+            color: hsla(0, 0%, 75%);
+            margin: 0;
+            margin-bottom: 10px;
+        }
+    }
+
+    & .background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        height: 100vh;
+        width: 100vw;
+        background-color: var(--primary);
+        box-shadow: inset 0 0 50px rgb(0, 0, 0, .5);
+
+        & .cube-large {
+            height: 15rem;
+            width: 15rem;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform-style: preserve-3d;
+            perspective: 10000px;
+
+            & * {
+                position: absolute;
+                height: 100%;
+                width: 100%;
+                border: 1px solid rgba(100, 100, 100, .2);
+                background-image: linear-gradient(180deg, rgba(10, 10, 10, .5) 25%, rgba(0, 0, 0, 0) 75%);
+            }
+
+            & .front {
+                transform: translateZ(7.5rem);
+                background-image: linear-gradient(180deg, rgba(15, 15, 15, .5) 25%, rgba(100, 100, 100, .1) 100%);
+            }
+            & .back {
+                transform: translateZ(-7.5rem);
+                background-image: linear-gradient(180deg, rgba(15, 15, 15, .5) 25%, rgba(100, 100, 100, .1) 100%);
+            }
+            & .right {
+                transform: rotateY(90deg) translateZ(7.5rem);
+                background-image: linear-gradient(180deg, rgba(15, 15, 15, .5) 25%, rgba(100, 100, 100, .1) 100%);    
+            }
+            & .left {
+                transform: rotateY(90deg) translateZ(-7.5rem);
+                background-image: linear-gradient(180deg, rgba(15, 15, 15, .5) 10%, rgba(100, 100, 100, .1) 100%);
+            }
+            & .top {
+                transform: rotateX(90deg) translateZ(7.5rem);
+                background-color: rgba(15, 15, 15, .5);
+            }
+            & .bottom {
+                transform: rotateX(90deg) translateZ(-7.5rem);
+                background-color: rgba(100, 100, 100, .1);
+            }
+        }
+
+        & .cube-large:nth-child(1) {
+            left: 50px;
+            transform: rotate(-10deg) rotateX(40deg);
+            animation: spin1 30s linear infinite;
+        }
+
+        & .cube-large:nth-child(2) {
+            top: 0;
+            left: 950px;
+            transform: rotate(-45deg) rotateY(-25deg);
+        }
+    }
+}
