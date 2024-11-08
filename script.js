@@ -1,14 +1,16 @@
 const pageAnimations = () => {
-    const menuSections = document.querySelectorAll('.menu-section')
     const homeSections = document.querySelectorAll('.home-section')
+    const menuSections = document.querySelectorAll('.menu-section')
+    const discoverButton = document.querySelector('#discover-button')
     const tl = gsap.timeline()
+    const tl2 = gsap.timeline( { paused: true } )
 
     tl.from('nav', {
         y: -100,
         delay: .25,
         duration: .5
     })
-    tl.from(".menu-section", {
+    tl.from('.menu-section', {
         y: -50,
         opacity: 0,
         delay: .1,
@@ -16,11 +18,39 @@ const pageAnimations = () => {
         stagger: .1
     })
 
+    gsap.from('#discover-button', {
+        opacity: 0,
+        y: 20,
+        delay: 2.85,
+        duration: .5,
+    })
+
+    tl2.to('#discover-button', {
+        border: '1px solid hsla(0, 0%, 50%, 0.5)',
+        duration: .25
+    })
+
+    discoverButton.onmouseover = () => {
+        tl2.play()
+    }
+    discoverButton.onmouseout = () => {
+        tl2.reverse()
+    }
+
+    discoverButton.onclick = () => {
+        gsap.to(window, {
+            duration: 2.5,
+            scrollTo: { y:`#section-2`, autoKill: true },
+            ease: 'power2.inOut'
+        })
+    }
+
     homeSections.forEach(homeSection => {
         homeSection.onclick = () => {
             gsap.to(window, {
-                duration: 1,
-                scrollTo: `#section-1`
+                duration: 2.5,
+                scrollTo: { y:`#section-1`, autoKill: true },
+                ease: 'power2.inOut'
             })
         }
     })
@@ -28,9 +58,9 @@ const pageAnimations = () => {
     menuSections.forEach((menuSection, index) => {
         menuSection.onclick = () => {
             gsap.to(window, {
-                duration: 1,
-                scrollTo: { y: `#section-${index + 1}` },
-                ease: 'power2.out'
+                duration: 2.5,
+                scrollTo: { y: `#section-${index + 1}`, autoKill: true },
+                ease: 'power2.inOut'
             })
         }
     })
@@ -64,6 +94,14 @@ const cursorAnimation = () => {
 
     animateCircles();
 }
+
+// const observer = new IntersectionObserver(entries => {
+//     entries.forEach(entry => {
+//         const intersecting = entry.isIntersecting
+//         entry.target.style.backgroundColor = intersecting ? "blue" : "orange"
+//     })
+// })
+
 
 pageAnimations()
 cursorAnimation()
