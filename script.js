@@ -39,7 +39,7 @@ const pageAnimations = () => {
 
     discoverButton.onclick = () => {
         gsap.to(window, {
-            duration: 2.5,
+            duration: 2,
             scrollTo: { y:`#section-2`, autoKill: true },
             ease: 'power2.inOut'
         })
@@ -48,7 +48,7 @@ const pageAnimations = () => {
     homeSections.forEach(homeSection => {
         homeSection.onclick = () => {
             gsap.to(window, {
-                duration: 2.5,
+                duration: 2,
                 scrollTo: { y:`#section-1`, autoKill: true },
                 ease: 'power2.inOut'
             })
@@ -58,7 +58,7 @@ const pageAnimations = () => {
     menuSections.forEach((menuSection, index) => {
         menuSection.onclick = () => {
             gsap.to(window, {
-                duration: 2.5,
+                duration: 2,
                 scrollTo: { y: `#section-${index + 1}`, autoKill: true },
                 ease: 'power2.inOut'
             })

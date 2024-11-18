@@ -1,22 +1,30 @@
 /* -------------------------- */
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap');
-@keyframes spin1 {
+@keyframes cube-spin1 {
     from {  transform: rotate(-10deg) rotateX(0deg) rotateY(0deg);      }
     to   {  transform: rotate(-10deg) rotateX(360deg) rotateY(360deg);  }
 }
-@keyframes spin2 {
+@keyframes cube-spin2 {
     from {  transform: rotate(-45deg) rotateY(0deg) rotateX(0deg);      }
     to   {  transform: rotate(-45deg) rotateY(-360deg) rotateX(360deg); }
 }
-@keyframes spin3 {
+@keyframes cube-spin3 {
     from {  transform: rotate(-60deg) rotateX(0deg) rotateY(0deg);      }
     to   {  transform: rotate(-60deg) rotateX(360deg) rotateY(360deg);  }
+}
+@keyframes wheel-spin {
+    from {  transform: rotateY(0deg) rotateX(0deg);                     }
+    to   {  transform: rotateY(-360deg) rotateX(-360deg);               }
+}
+@keyframes wheel-spin2 {
+    from {  transform: rotateX(0deg) rotateY(0deg);                     }
+    to   {  transform: rotateX(360deg) rotateY(360deg);                 }
 }
 @keyframes swipe-in {
     0%   {  width: 0%;      left: 0;        right: 100%;                }
     50%  {  width: 100%;    left: 0;        right: 0;                   }
     100% {  width: 0%;      left: 100%;     right: 0;                   }
-}
+}   
 @keyframes fade-in-text {
     from {                  opacity: 0;                                 }
     to   {                  opacity: 1;                                 }
@@ -29,13 +37,15 @@
 :root {
     --primary: hsl(0, 0%, 6%);
     --color-light: hsl(0, 0%, 75%);
+    --color-medium: hsl(0, 0%, 60%);
     --border-light: hsla(0, 0%, 20%, 0.5);
     --cube-image-color-hovered: hsla(0, 0%, 39%, 0.3);
     --cube-image-color: linear-gradient(180deg, rgba(15, 15, 15, .5) 25%, rgba(100, 100, 100, .1) 100%);
 }
 * {
-    /* cursor: none; */
+    cursor: none;
     box-sizing: border-box;
+    letter-spacing: 1.2px;
 }
 body {
     margin: 0;
@@ -106,7 +116,7 @@ nav {
             font-size: small;
             position: relative;
             text-decoration: none;
-            color: var(--color-light);
+            color: var(--color-medium);
             border-bottom: 1px solid transparent;
             &:hover::after {
                 width: 100%;
@@ -136,12 +146,12 @@ nav {
     width: 100vw;
     height: 100vh;
     position: relative;
-    background-color: var(--primary);
     .home-section-container {
         top: 50%;
         left: 50%;
         display: flex;
         width: max-content;
+        z-index: 2;
         position: absolute;
         align-items: center;
         flex-direction: column;
@@ -157,6 +167,7 @@ nav {
             animation: fade-in-text .01s linear 1.95s forwards;
         }
         p {
+            color: var(--color-medium);
             opacity: 0;
             animation: fade-in-text .01s linear 2.25s forwards;
         }
@@ -181,7 +192,7 @@ nav {
             }
         }
         button {
-            color: var(--color-light);
+            color: var(--color-medium);
             padding: 10px;
             margin: 0;
             margin-top: 25px;
@@ -206,28 +217,25 @@ nav {
             }
         }
     }
-    .cube-large {
-        right: -5%;
-        width: 20rem;
-        bottom: -20%;
-        height: 20rem;
-        position: absolute;
-        animation: spin3 25s linear infinite;
-    }
     .cube-normal {
         width: 15rem;
         height: 15rem;
         position: absolute;
     }
+    .cube-normal:nth-child(2) {
+        right: -5%;
+        bottom: -5%;
+        animation: cube-spin3 25s linear infinite;
+    }
     .cube-normal:nth-child(3) {
         top: 55%;
         left: 2%;
-        animation: spin1 25s linear infinite;
+        animation: cube-spin1 25s linear infinite;
     }
     .cube-normal:nth-child(4) {
         top: -10%;
         right: 18%;
-        animation: spin2 25s linear infinite;
+        animation: cube-spin2 25s linear infinite;
     }
     .cube-small {
         width: 5rem;
@@ -237,12 +245,12 @@ nav {
     .cube-small:nth-child(5) {
         top: 10%;
         left: 30%;
-        animation: spin2 25s linear infinite reverse;
+        animation: cube-spin2 25s linear infinite reverse;
     }
     .cube-small:nth-child(6) {
         top: 70%;
         right: 45%;
-        animation: spin3 25s linear infinite reverse;
+        animation: cube-spin3 25s linear infinite reverse;
     }
     .cube-extra-small {
         top: 20%;
@@ -250,27 +258,7 @@ nav {
         width: 2.5rem;
         height: 2.5rem;
         position: absolute;
-        animation: spin1 25s linear infinite reverse;
-    }
-    .cube-large * {
-        &:nth-child(1) {
-            transform: translateZ(10rem);
-        }
-        &:nth-child(2) {
-            transform: rotateY(180deg) translateZ(10rem);
-        }
-        &:nth-child(3) {
-            transform: rotateY(90deg) translateZ(10rem);
-        }
-        &:nth-child(4) {
-            transform: rotateY(-90deg) translateZ(10rem);
-        }
-        &:nth-child(5) {
-            transform: rotateX(90deg) translateZ(10rem);
-        }
-        &:nth-child(6) {
-            transform: rotateX(-90deg) translateZ(10rem);
-        }
+        animation: cube-spin1 25s linear infinite reverse;
     }
     .cube-normal * {
         &:nth-child(1) {
@@ -342,12 +330,12 @@ nav {
     width: 100vw;
     height: 100vh;
     position: relative;
-    padding: 20px;
+    padding: 20px 50px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     place-items: center;
-    background-color: var(--primary);
     .texts {
+        line-height: 1.1rem;
         * {
             color: var(--color-light);
             width: 50%;
@@ -356,60 +344,88 @@ nav {
         p:nth-child(1) {
             font-size: 2rem;
             margin-bottom: 25px;
+            font-weight: bold;
         }
         p {
+            color: var(--color-medium);
             font-size: small;
         }
     }
-    .cube-container {
+    .wheel-container {
         position: relative;
-        height: 50%;
-        width: 50%;
+        height: 100%;
+        width: 100%;
         perspective: 10000px;
         display: flex;
         justify-content: center;
         align-items: center;
         transform-style: preserve-3d;
-        border: 1px solid var(--border-light);
-        border-radius: 5px;
-        .tilting-cube {
+        .wheel {
+            perspective: 10000px;
+            transform-style: preserve-3d;
             width: 5rem;
             height: 5rem;
             position: absolute;
-            perspective: 10000px;
-            transform-style: preserve-3d;
-            * {
-                width: 100%;
-                height: 100%;
-                position: absolute;
-                transition: all .5s;
-                background-image: var(--cube-image-color);
-                backface-visibility: hidden;
-                border: 1px solid rgba(100, 100, 100, .2);
-                &:hover {
-                    background-color: var(--cube-image-color-hovered);
-                }
-                &:nth-child(1) {
-                    transform: translateZ(2.5rem);
-                }
-                &:nth-child(2) {
-                    transform: rotateY(180deg) translateZ(2.5rem);
-                }
-                &:nth-child(3) {
-                    transform: rotateY(90deg) translateZ(2.5rem);
-                }
-                &:nth-child(4) {
-                    transform: rotateY(-90deg) translateZ(2.5rem);
-                }
-                &:nth-child(5) {
-                    transform: rotateX(90deg) translateZ(2.5rem);
-                }
-                &:nth-child(6) {
-                    transform: rotateX(-90deg) translateZ(2.5rem);
-                }
+        }
+        .wheel:nth-child(1) {
+            animation: wheel-spin 10s infinite linear;
+        }
+        .wheel:nth-child(2) {
+            animation: wheel-spin2 10s infinite linear;
+        }
+        .wheel * {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            transition: all .25s;
+            background-image: var(--cube-image-color);
+            color: var(--color-medium);
+            &:hover {   opacity: 0; }
+            &:nth-child(1) {
+                transform: translateZ(9.32rem);
+            }
+            &:nth-child(2) {
+                transform: rotateY(30deg) translateZ(9.32rem);
+            }
+            &:nth-child(3) {
+                transform: rotateY(60deg) translateZ(9.32rem);
+            }
+            &:nth-child(4) {
+                transform: rotateY(90deg) translateZ(9.32rem);
+            }
+            &:nth-child(5) {
+                transform: rotateY(120deg) translateZ(9.32rem);
+            }
+            &:nth-child(6) {
+                transform: rotateY(150deg) translateZ(9.32rem);
+            }
+            &:nth-child(7) {
+                transform: rotateY(180deg) translateZ(9.32rem);
+            }
+            &:nth-child(8) {
+                transform: rotateY(210deg) translateZ(9.32rem);
+            }
+            &:nth-child(9) {
+                transform: rotateY(240deg) translateZ(9.32rem);
+            }
+            &:nth-child(10) {
+                transform: rotateY(270deg) translateZ(9.32rem);
+            }
+            &:nth-child(11) {
+                transform: rotateY(300deg) translateZ(9.32rem);
+            }
+            &:nth-child(12) {
+                transform: rotateY(330deg) translateZ(9.32rem);
             }
         }
     }
+}
+#section-2::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
 }
 @keyframes rotate {
     from {  transform: rotateY(0deg);   }
