@@ -1,4 +1,4 @@
-const pageAnimations = () => {
+const homePageAnimations = () => {
     const homeSections = document.querySelectorAll('.home-section')
     const menuSections = document.querySelectorAll('.menu-section')
     const discoverButton = document.querySelector('#discover-button')
@@ -66,6 +66,43 @@ const pageAnimations = () => {
     })
 }
 
+const aboutPageAnimations = () => {
+    const wheel1 = document.querySelector('.wheel:nth-child(1)')
+    const wheel2 = document.querySelector('.wheel:nth-child(2)')
+    const wheel_1_Sides = document.querySelectorAll('.wheel-1-sides')
+    const wheel_2_Sides = document.querySelectorAll('.wheel-2-sides')
+
+    wheel_1_Sides.forEach(sides => {
+        sides.onmouseover = () => {
+            wheel1.style.animationPlayState = 'paused'
+        }
+        sides.onmouseout = () => {
+            wheel1.style.animationPlayState = 'running'
+        }
+    })
+    wheel_2_Sides.forEach(sides => {
+        sides.onmouseover = () => {
+            wheel2.style.animationPlayState = 'paused'
+        }
+        sides.onmouseout = () => {
+            wheel2.style.animationPlayState = 'running'
+        }
+    })
+
+    // wheelSides.forEach(sides => {
+    //     sides.onmouseover = () => {
+    //         wheels.forEach(wheel => {
+    //             wheel.style.animationPlayState = 'paused'
+    //         })
+    //     }
+    //     sides.onmouseout = () => {
+    //         wheels.forEach(wheel => {
+    //             wheel.style.animationPlayState = 'running'
+    //         })
+    //     }
+    // })
+}
+
 const cursorAnimation = () => {
     const coords = { x: 0, y: 0 };
     const circle = document.querySelector(".circle");
@@ -102,6 +139,6 @@ const cursorAnimation = () => {
 //     })
 // })
 
-
-pageAnimations()
+homePageAnimations()
+aboutPageAnimations()
 cursorAnimation()
