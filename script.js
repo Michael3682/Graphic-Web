@@ -21,7 +21,7 @@ const homePageAnimations = () => {
     gsap.from('#discover-button', {
         opacity: 0,
         y: 20,
-        delay: 2.85,
+        delay: 2.5,
         duration: .5,
     })
 
@@ -64,43 +64,21 @@ const homePageAnimations = () => {
             })
         }
     })
+
+    gsap.to('.line', {
+        height: '100%',
+        scrollTrigger: {
+            trigger: '.about-info-1',
+            scroller: 'body',
+            scrub: 1,
+            start: '10% 90%',
+            end: '100% 10%'
+        }
+    })
 }
 
 const aboutPageAnimations = () => {
-    const wheel1 = document.querySelector('.wheel:nth-child(1)')
-    const wheel2 = document.querySelector('.wheel:nth-child(2)')
-    const wheel_1_Sides = document.querySelectorAll('.wheel-1-sides')
-    const wheel_2_Sides = document.querySelectorAll('.wheel-2-sides')
 
-    wheel_1_Sides.forEach(sides => {
-        sides.onmouseover = () => {
-            wheel1.style.animationPlayState = 'paused'
-        }
-        sides.onmouseout = () => {
-            wheel1.style.animationPlayState = 'running'
-        }
-    })
-    wheel_2_Sides.forEach(sides => {
-        sides.onmouseover = () => {
-            wheel2.style.animationPlayState = 'paused'
-        }
-        sides.onmouseout = () => {
-            wheel2.style.animationPlayState = 'running'
-        }
-    })
-
-    // wheelSides.forEach(sides => {
-    //     sides.onmouseover = () => {
-    //         wheels.forEach(wheel => {
-    //             wheel.style.animationPlayState = 'paused'
-    //         })
-    //     }
-    //     sides.onmouseout = () => {
-    //         wheels.forEach(wheel => {
-    //             wheel.style.animationPlayState = 'running'
-    //         })
-    //     }
-    // })
 }
 
 const cursorAnimation = () => {
