@@ -78,12 +78,24 @@ const homePageAnimations = () => {
 }
 
 const aboutPageAnimations = () => {
+    const tl = gsap.timeline()
 
+    gsap.to('.about-info-2 p', {
+        opacity: 1,
+        scrollTrigger: {
+            trigger: '.about-info-2',
+            scroller: 'body',
+            scrub: 1,
+            markers: true,
+            start: '150% 100%',
+            end: '-50% -50%'
+        }
+    })
 }
 
 const cursorAnimation = () => {
     const coords = { x: 0, y: 0 };
-    const circle = document.querySelector(".circle");
+    const circle = document.querySelector(".mouse-pointer");
 
     circle.x = 0;
     circle.y = 0;
