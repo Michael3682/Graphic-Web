@@ -1,9 +1,9 @@
-const homePageAnimations = () => {
-    const homeSections = document.querySelectorAll('.home-section')
-    const menuSections = document.querySelectorAll('.menu-section')
-    const discoverButton = document.querySelector('#discover-button')
+const homepage_animations = () => {
+    const home_sections = document.querySelectorAll('.home-section')
+    const menu_sections = document.querySelectorAll('.menu-section')
+    const discover_button = document.querySelector('#discover-button')
     const tl = gsap.timeline()
-    const tl2 = gsap.timeline( { paused: true } )
+    const tl2 = gsap.timeline({ paused: true })
 
     tl.from('nav', {
         y: -100,
@@ -30,33 +30,33 @@ const homePageAnimations = () => {
         duration: .25
     })
 
-    discoverButton.onmouseover = () => {
+    discover_button.onmouseover = () => {
         tl2.play()
     }
-    discoverButton.onmouseout = () => {
+    discover_button.onmouseout = () => {
         tl2.reverse()
     }
 
-    discoverButton.onclick = () => {
+    discover_button.onclick = () => {
         gsap.to(window, {
             duration: 2,
-            scrollTo: { y:`#section-2`, autoKill: true },
+            scrollTo: { y: `#section-2`, autoKill: true },
             ease: 'power2.inOut'
         })
     }
 
-    homeSections.forEach(homeSection => {
-        homeSection.onclick = () => {
+    home_sections.forEach(home_section => {
+        home_section.onclick = () => {
             gsap.to(window, {
                 duration: 2,
-                scrollTo: { y:`#section-1`, autoKill: true },
+                scrollTo: { y: `#section-1`, autoKill: true },
                 ease: 'power2.inOut'
             })
         }
     })
 
-    menuSections.forEach((menuSection, index) => {
-        menuSection.onclick = () => {
+    menu_sections.forEach((menu_section, index) => {
+        menu_section.onclick = () => {
             gsap.to(window, {
                 duration: 2,
                 scrollTo: { y: `#section-${index + 1}`, autoKill: true },
@@ -76,24 +76,48 @@ const homePageAnimations = () => {
         }
     })
 }
+const cards_animations = () => {
+    const card_holders = document.querySelectorAll('.card-holder');
 
-const aboutPageAnimations = () => {
-    const tl = gsap.timeline()
+    card_holders.forEach(card_holder => {
+        const card = card_holder.querySelector('.card');
+        const card_holder_size = card_holder.getBoundingClientRect();
+        const card_holder_x = card_holder_size.left;
+        const card_holder_y = card_holder_size.top;
+        const width = card_holder_size.width;
+        const height = card_holder_size.height;
+        
 
-    gsap.to('.about-info-2 p', {
-        opacity: 1,
-        scrollTrigger: {
-            trigger: '.about-info-2',
-            scroller: 'body',
-            scrub: 1,
-            markers: true,
-            start: '150% 100%',
-            end: '-50% -50%'
-        }
-    })
-}
+        card_holder.addEventListener('mousemove', (e) => {
+            rotateElement(e, card, card_holder_x, card_holder_y, width, height);
+        });
 
-const cursorAnimation = () => {
+        card_holder.addEventListener('mouseleave', () => {
+            resetRotation(card);
+        });
+    });
+
+    function rotateElement(event, element, card_holder_x, card_holder_y, width, height) {
+        const x = event.clientX - card_holder_x;
+        const y = event.clientY - card_holder_y;
+        
+        const middleX = width / 2;
+        const middleY = height / 2;
+        console.log(middleX, middleY)
+        
+        const offsetX = ((x - middleX) / middleX) * 30;
+        const offsetY = ((y - middleY) / middleY) * 30;
+
+        element.style.setProperty('--rotateX', -offsetY + 'deg');
+        element.style.setProperty('--rotateY', offsetX + 'deg');
+    }
+
+    function resetRotation(element) {
+        element.style.setProperty('--rotateX', '0deg');
+        element.style.setProperty('--rotateY', '0deg');
+    }
+}   
+const cursor = () => {
     const coords = { x: 0, y: 0 };
     const circle = document.querySelector(".mouse-pointer");
 
@@ -105,7 +129,7 @@ const cursorAnimation = () => {
         coords.y = e.clientY;
     });
 
-    function animateCircles() {
+    function animate_circles() {
 
         let x = coords.x;
         let y = coords.y;
@@ -116,10 +140,10 @@ const cursorAnimation = () => {
         circle.x = x;
         circle.y = y;
 
-        requestAnimationFrame(animateCircles);
+        requestAnimationFrame(animate_circles);
     }
 
-    animateCircles();
+    animate_circles();
 }
 
 // const observer = new IntersectionObserver(entries => {
@@ -129,6 +153,6 @@ const cursorAnimation = () => {
 //     })
 // })
 
-homePageAnimations()
-aboutPageAnimations()
-cursorAnimation()
+homepage_animations()
+cards_animations()
+cursor()
