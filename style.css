@@ -59,7 +59,7 @@
     --cube-image-color: linear-gradient(180deg, rgba(15, 15, 15, .5) 25%, rgba(100, 100, 100, .1) 100%);
 }
 * {
-    /* cursor: none; */
+    cursor: none;
     letter-spacing: 1.2px;
     box-sizing: border-box;
 }
@@ -211,7 +211,7 @@ nav {
         button {
             margin: 0;
             padding: 10px;
-            font-size: medium;
+            font-size: small;
             margin-top: 25px;
             border-radius: 5px;
             color: var(--color-medium);
@@ -376,7 +376,7 @@ nav {
         position: relative;
         margin-bottom: 10rem;
         p {
-            margin-bottom: 5.5rem;
+            margin-bottom: 6.25rem;
             animation: blurAnimation linear both;
             animation-timeline: view();
         }
@@ -427,7 +427,7 @@ nav {
             .card-holder {
                 height: 250px;
                 width: 250px;
-                perspective: 10000px;
+                perspective: 1000px;
                 transform-style: preserve-3d;
             }
             .card{
@@ -439,32 +439,35 @@ nav {
                 border-radius: 5px;
                 align-items: center;
                 pointer-events: none;
-                perspective: 10000px;
                 flex-direction: column;
                 color: var(--color-medium);
                 transform-style: preserve-3d;
                 border: 1px solid hsla(0, 0%, 20%, 0.5);
                 box-shadow: 0 0 5px hsla(0, 0%, 20%, 0.5);
-                transition: all .5s cubic-bezier(.33,.97,.54,1.31);
+                transition: all .5s cubic-bezier(0.25, 0.68, 0.48, 1.01);
                 transform: rotateX(var(--rotateX, 0deg)) rotateY(var(--rotateY, 0deg));
                 .title {
+                    transform-style: preserve-3d;
                     font-weight: bold;
-                    transition: all .5s;
                     margin-bottom: 1.5rem;
+                    span {
+                        display: inline-block;
+                    }
+                    #blank {
+                        width: 4px;
+                    }
                 }
                 .description {
+                    transform-style: preserve-3d;
                     text-align: center;
-                    transition: all .5s;
+                    span {
+                        display: inline-block;
+                    }
                 }
             }
             .card-holder:hover .card{
                 border: 1px solid hsla(0, 0%, 50%, 0.5);
                 box-shadow: 0 0 5px hsla(0, 0%, 50%, 0.5);
-            }
-            .card-holder:hover .card .title,
-            .card-holder:hover .card .description {
-                transform: translateZ(2rem);
-                text-shadow: 0 0 10px hsla(0, 0%, 50%, 0.5);
             }
         }
     }
