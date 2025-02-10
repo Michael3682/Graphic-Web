@@ -376,7 +376,7 @@ nav {
         position: relative;
         margin-bottom: 10rem;
         p {
-            margin-bottom: 6.25rem;
+            margin-bottom: 6.5rem;
             animation: blurAnimation linear both;
             animation-timeline: view();
         }
@@ -416,7 +416,6 @@ nav {
         position: relative;
         p {
             font-size: 3rem;
-            font-weight: bold;
             margin-bottom: 5rem;
             color: var(--color-light);
         }

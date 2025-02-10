@@ -92,6 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         })
 
+        
 
         gsap.to('.line', {
             height: '100%',
@@ -110,8 +111,6 @@ document.addEventListener("DOMContentLoaded", () => {
         card_holders.forEach(card_holder => {
             const card = card_holder.querySelector('.card')
             const card_holder_size = card_holder.getBoundingClientRect()
-            const card_holder_x = card_holder_size.left
-            const card_holder_y = card_holder_size.top
             const width = card_holder_size.width
             const height = card_holder_size.height
 
@@ -119,7 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
             card.style.setProperty('--rotateY', '0deg');
 
             card_holder.addEventListener('mousemove', (e) => {
-                rotateElement(e, card, card_holder_x, card_holder_y, width, height)
+                rotateElement(e, card, card_holder, width, height)
             })
 
             card_holder.addEventListener('mouseleave', () => {
@@ -127,7 +126,11 @@ document.addEventListener("DOMContentLoaded", () => {
             })
         })
 
-        function rotateElement(event, element, card_holder_x, card_holder_y, width, height) {
+        function rotateElement(event, element, card_holder, width, height) {
+            const card_holder_size = card_holder.getBoundingClientRect()
+            const card_holder_x = card_holder_size.left
+            const card_holder_y = card_holder_size.top
+
             const x = event.clientX - card_holder_x
             const y = event.clientY - card_holder_y
 
@@ -250,3 +253,24 @@ document.addEventListener("DOMContentLoaded", () => {
     scrollTo_section_animations()
     cursor()
 })
+// gsap.to(".scroll-box", {
+//     scrollTrigger: {            trigger: ".scroll-box",
+//         scroller: "body",  // The trigger element
+//         start: "top bottom",     // When the top of the box reaches the bottom of the viewport
+//         end: "bottom top",       // When the bottom of the box reaches the top of the viewport
+//         scrub: 3,             // Makes the animation linked to the scroll position
+//         markers: true            // Optional: Show markers for debugging (you can remove this)
+//     },
+//     // Use matrix3d to transform the element
+//     transform: "matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 100, 0, 1)",
+//     onUpdate: (self) => {
+//         // Calculate a smoother translateY with decimals
+//         let translateY = self * 1000;  // Adjust the multiplier as needed for desired effect
+//         // Round the translateY value to a few decimal places for smoother effect
+//         let smoothTranslateY = translateY.toFixed(2);  // Adjust the decimal precision for smoother movement
+//         // Update the matrix3d to reflect the current translateY value
+//         gsap.set(".scroll-box", {
+//             transform: `matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, ${smoothTranslateY}, 0, 1)`
+//         });
+//     }
+// });
