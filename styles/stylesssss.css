@@ -1,0 +1,83 @@
+/* -------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap');
+@import url('https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css');
+@keyframes cube-spin1 {
+    from {  transform: rotate(-10deg) rotateX(0deg) rotateY(0deg);      }
+    to   {  transform: rotate(-10deg) rotateX(360deg) rotateY(360deg);  }
+}
+@keyframes cube-spin2 {
+    from {  transform: rotate(-45deg) rotateY(0deg) rotateX(0deg);      }
+    to   {  transform: rotate(-45deg) rotateY(-360deg) rotateX(360deg); }
+}
+@keyframes cube-spin3 {
+    from {  transform: rotate(-60deg) rotateX(0deg) rotateY(0deg);      }
+    to   {  transform: rotate(-60deg) rotateX(360deg) rotateY(360deg);  }
+}
+@keyframes wheel-spin {
+    from {  transform: rotateY(0deg) rotateX(0deg);                     }
+    to   {  transform: rotateY(-360deg) rotateX(-360deg);               }
+}
+@keyframes wheel-spin2 {
+    from {  transform: rotateX(0deg) rotateY(0deg);                     }
+    to   {  transform: rotateX(360deg) rotateY(360deg);                 }
+}
+@keyframes swipe-in {
+    0%   {  width: 0%;      left: 0;        right: 100%;                }
+    50%  {  width: 100%;    left: 0;        right: 0;                   }
+    100% {  width: 0%;      left: 100%;     right: 0;                   }
+}   
+@keyframes fade-in-text {
+    from {                  opacity: 0;                                 }
+    to   {                  opacity: 1;                                 }
+}
+@keyframes border-spin {
+    from {                 --angle: 0deg;                               }
+    to   {                --angle: 360deg;                              }
+}
+
+@property --angle {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+}
+@property --progress {
+    syntax: '<percentage>';
+    initial-value: 0%;
+    inherits: true;
+}
+/* -------------------------- */
+
+
+/* ----------GLOBAL---------- */
+:root {
+    --primary: hsl(0, 0%, 6%);
+    --color-light: hsl(0, 0%, 65%);
+    --color-medium: hsl(0, 0%, 60%);
+    --border-light: hsla(0, 0%, 20%, 0.5);
+    --cube-image-color-hovered: hsla(0, 0%, 39%, 0.3);
+    --cube-image-color: linear-gradient(180deg, rgba(15, 15, 15, .5) 25%, rgba(100, 100, 100, .1) 100%);
+}
+* {
+    cursor: none;
+    letter-spacing: 1.2px;
+    box-sizing: border-box;
+}
+body {
+    margin: 0;
+    padding: 0;
+    font-weight: 300;
+    font-family: 'Roboto Flex';
+}
+body::-webkit-scrollbar {
+    display: none;
+}
+/* ----------GLOBAL---------- */
+
+
+/* -----------MAIN----------- */
+main {
+    position: relative;
+    text-transform: uppercase;
+    background-color: var(--primary);
+}
+/* -----------MAIN----------- */
