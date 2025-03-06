@@ -6,26 +6,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const nav_bar = document.querySelector('.nav-bar')
         const discover_button = document.querySelector('#discover-button')
         const nav_buttons_container = document.querySelector('.nav-buttons-container')
-        nav_bar.addEventListener('mouseenter', () => {
-            gsap.to(nav_bar, {
-                width: '100%',
-                duration: 0.3
-            })
-            gsap.to(nav_buttons_container, {
-                opacity: 1,
-                duration: 0.2
-            })
-        })
-        nav.addEventListener('mouseleave', () => {
-            gsap.to(nav_bar, {
-                width: '20%',
-                duration: 0.3,
-            })
-            gsap.to(nav_buttons_container, {
-                opacity: 0,
-                duration: 0.2
-            })
-        })
+        const website_progress_bar = document.querySelector('.website-progress-bar')
+
         tl.from('.company-logo', {
             y: -100,
             delay: .25,
@@ -35,26 +17,44 @@ document.addEventListener('DOMContentLoaded', () => {
             y: -100,
             duration: .5
         })
-
-        gsap.from('#discover-button', {
-            opacity: 0,
-            y: 20,
-            delay: 2.5,
-            duration: .5,
-        })
-
         tl2.to('#discover-button', {
             border: '1px solid hsla(0, 0%, 50%, 0.5)',
             duration: .25
         })
-
         discover_button.onmouseover = () => {
             tl2.play()
         }
         discover_button.onmouseout = () => {
             tl2.reverse()
         }
-
+        nav_bar.addEventListener('mouseenter', () => {
+            gsap.to(nav_bar, {
+                width: '100%',
+                ease: "bounce.out",  
+                duration: .75,
+                overwrite: true
+            })
+            gsap.to(nav_buttons_container, {
+                display: 'flex',
+                opacity: 1,
+                delay: .45,
+                duration: .1
+            })
+        })
+        nav.addEventListener('mouseleave', () => {
+            gsap.to(nav_buttons_container, {
+                display: 'none',
+                opacity: 0,
+                duration: .1,
+                overwrite: true
+            })
+            gsap.to(nav_bar, {
+                width: '20%',
+                ease: "bounce.out",
+                delay: .1,
+                duration: .75
+            })
+        })
         discover_button.onclick = () => {
             gsap.to(window, {
                 duration: 2,
@@ -62,6 +62,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 ease: 'power2.inOut'
             })
         }
+        gsap.from('#discover-button', {
+            opacity: 0,
+            y: 20,
+            delay: 2.5,
+            duration: .5,
+        })
+        gsap.to(website_progress_bar, {
+            height: '100%',
+            scrollTrigger: {
+                trigger: 'body',
+                scroller: 'body',
+                scrub: 3,
+                start: '.1% 0%',
+                end: '100% 100%',
+            }
+        })
     }
     const about_section_animations = () => {
         const card_holders_array = document.querySelectorAll('.card-holder')
@@ -156,6 +172,38 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         })
     }
+    const services_section_animations = () => {
+        const box = document.querySelector('.box')
+        const background_container = document.querySelector('.section-3-background')
+        total_cloned_box = 199
+
+        for (i = 0; i < total_cloned_box;  i++) {
+            const cloned_box = box.cloneNode(true)
+            background_container.appendChild(cloned_box)
+        }
+        
+        const coords = { x: 0, y: 0 };
+        const section_3 = document.querySelector('#section-3');
+        const circle = document.querySelector('.hover-effect');
+
+        window.addEventListener('mousemove', e => {
+            const rect = section_3.getBoundingClientRect();
+            coords.x = e.clientX - rect.left;
+            coords.y = e.clientY - rect.top;
+        });
+
+        function animate_circles() {
+            let x = coords.x;
+            let y = coords.y;
+
+            circle.style.left = `${x - circle.offsetWidth / 2}px`;
+            circle.style.top = `${y - circle.offsetHeight / 2}px`;
+
+            requestAnimationFrame(animate_circles);
+        }
+
+        animate_circles();
+    }
     const cards_tilt_animation = () => {
         const card_holders = document.querySelectorAll('.card-holder')
 
@@ -245,7 +293,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         logo.onclick = () => {
             gsap.to(window, {
-                duration: 2,
+                duration: 1.75,
                 scrollTo: { y: `#section-1`, autoKill: true },
                 ease: 'power2.inOut'
             })
@@ -253,7 +301,7 @@ document.addEventListener('DOMContentLoaded', () => {
         buttons.forEach((button, index) => {
             button.onclick = () => {
                 gsap.to(window, {
-                    duration: 2,
+                    duration: 1.75,
                     scrollTo: { y: `#section-${index + 1}`, autoKill: true },
                     ease: 'power2.inOut'
                 })
@@ -277,8 +325,8 @@ document.addEventListener('DOMContentLoaded', () => {
             let x = coords.x
             let y = coords.y
 
-            circle.style.left = `${x - 7.5}px`
-            circle.style.top = `${y - 7.5}px`
+            circle.style.left = `${x - 5}px`
+            circle.style.top = `${y - 5}px`
 
             circle.x = x
             circle.y = y
@@ -298,6 +346,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     home_section_animations()
     about_section_animations()
+    services_section_animations()
     cards_tilt_animation()
     scrollTo_section_animations()
     cursor()
@@ -309,17 +358,4 @@ const smoother = ScrollSmoother.create({
     content: '.smooth-content',
     smooth: 3,
     effects: true
-})
-
-const website_progress_bar = document.querySelector('.website-progress-bar')
-
-gsap.to(website_progress_bar, {
-    height: '100%',
-    scrollTrigger: {
-        trigger: 'body',
-        scroller: 'body',
-        scrub: 3,
-        start:'.1% 0%',
-        end: '100% 100%',
-    }
 })
