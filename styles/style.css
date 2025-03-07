@@ -443,10 +443,10 @@
         width: 50rem;
         height: 50rem;
         position: absolute;
-        /* border-radius: 50%;
+        border-radius: 50%;
         filter: blur(250px);
         transition: opacity 1s;
-        background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(125,125,125,1) 50%, rgba(0,0,0,1) 100%); */
+        background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(125,125,125,1) 50%, rgba(0,0,0,1) 100%);
     }
     .section-3-background {
         top: 0;
@@ -484,6 +484,7 @@
             margin: 0;
             padding: 10px 15px;
             font-size: medium;
+            transition: all .5s;
             border-radius: 50px;
             color: var(--color-medium);
             background-color: var(--primary);
