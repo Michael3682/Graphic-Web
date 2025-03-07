@@ -192,6 +192,7 @@ document.addEventListener("DOMContentLoaded", () => {
       ".section-3-background"
     )
     const coords = { x: 0, y: 0 }
+    let isRunning = false
     let total_cloned_box_holder = 199
 
     for (i = 0; i < total_cloned_box_holder; i++) {
@@ -205,41 +206,48 @@ document.addEventListener("DOMContentLoaded", () => {
       coords.y = e.clientY - rect.top
     })
 
-    function animate_circles() {
-      let x = coords.x
-      let y = coords.y
+    const runAnimation = () => {
+      function animate_circles() {
+        let x = coords.x
+        let y = coords.y
 
-      circle.style.left = `${x - circle.offsetWidth / 2}px`
-      circle.style.top = `${y - circle.offsetHeight / 2}px`
+        circle.style.left = `${x - circle.offsetWidth / 2}px`
+        circle.style.top = `${y - circle.offsetHeight / 2}px`
 
-      requestAnimationFrame(animate_circles)
+        requestAnimationFrame(animate_circles)
+      }
+      animate_circles()
+
+      section_3.addEventListener("mouseover", () => {
+        circle.style.opacity = 1
+      })
+      section_3.addEventListener("mouseout", () => {
+        circle.style.opacity = 0
+      })
     }
-    animate_circles()
 
-    section_3.addEventListener("mouseover", () => {
-      circle.style.opacity = 1
-    })
-    section_3.addEventListener("mouseout", () => {
-      circle.style.opacity = 0
-    })
     tl.to(".box", {
-        border: "1px solid white",
-        duration: 0.5,
-        stagger: {
-            from: "center",
-            grid: "auto",
-            each: 0.025,
-            repeat: 1,
-            yoyo: true
+      border: "1px solid hsla(0, 0%, 20%, 0.5)",
+      duration: .5,
+      stagger: {
+        from: "center",
+        grid: "auto",
+        each: 0.025,
+        repeat: 1,
+        yoyo: true
+      }
+    })
+    open_button.addEventListener("click", () => {
+      tl.play()
+      tl.eventCallback("onComplete", () => {
+        if (!isRunning) {
+          isRunning = true
+          runAnimation()
+        }
+        else {
+          return
         }
       })
-    open_button.addEventListener("click", () => {
-      if (tl.isActive()) {
-        tl.restart()
-      }
-      else {
-        tl.play()
-      }
     })
   }
   const cards_tilt_animation = () => {
