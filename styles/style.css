@@ -400,7 +400,7 @@
                 border: 1px solid hsla(0, 0%, 20%, 0.5);
                 box-shadow: 0 0 5px hsla(0, 0%, 20%, 0.5);
                 transition: all .5s cubic-bezier(0.25, 0.68, 0.48, 1.01);
-                transform: rotateX(var(--rotateX, 0deg)) rotateY(var(--rotateY, 0deg)) translateZ(var(--translateZ, 0deg)) rotate(var(--rotate, 0deg));
+                transform: rotateX(var(--rotateX, 0deg)) rotateY(var(--rotateY, 0deg)) translateZ(var(--translateZ, 0deg));
                 .title {
                     transform-style: preserve-3d;
                     font-weight: bold;
@@ -439,13 +439,14 @@
     .hover-effect {
         top: 0;
         left: 0;
-        width: 240px;
-        height: 240px;
+        opacity: 0;
+        width: 50rem;
+        height: 50rem;
         position: absolute;
-        filter: blur(15px);
-        border-radius: 50%;
-        transition: opacity .5s linear;
-        background-color: var(--border-light);
+        /* border-radius: 50%;
+        filter: blur(250px);
+        transition: opacity 1s;
+        background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(125,125,125,1) 50%, rgba(0,0,0,1) 100%); */
     }
     .section-3-background {
         top: 0;
@@ -455,17 +456,42 @@
         display: grid;
         grid-row-gap: 1px;
         position: absolute;
+        perspective: 10000px;
         grid-column-gap: 1px;
+        transform-style: preserve-3d;
         grid-template-columns: repeat(20, 1fr);
         grid-template-rows: repeat(10, 1fr);
-        .box {
-            width: 100%;
-            height: 100%;
-            border: 1px solid transparent;
-            background-color: var(--primary);
+        .box-holder {
+            perspective: 10000px;
+            transform-style: preserve-3d;
+            .box {
+                width: 100%;
+                height: 100%;
+                border-radius: 5px;
+                border: 1px solid transparent;
+                background-color: var(--primary);
+            }
         }
     }
-}   
+    .section-3-content {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        button {
+            margin: 0;
+            padding: 10px 15px;
+            font-size: medium;
+            border-radius: 50px;
+            color: var(--color-medium);
+            background-color: var(--primary);
+            border: 1px solid var(--border-light);
+        }
+    }
+}
+
 
 
 /* ----------CURSOR---------- */
