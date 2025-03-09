@@ -146,7 +146,7 @@ document.addEventListener("DOMContentLoaded", () => {
         scroller: "body",
         start: "top 80%",
         end: "top 30%",
-        scrub: 3
+        scrub: 2
       }
     })
     gsap.from(".about-info-1 p:nth-child(2)", {
@@ -157,7 +157,7 @@ document.addEventListener("DOMContentLoaded", () => {
         scroller: "body",
         start: "top 80%",
         end: "top 30%",
-        scrub: 3
+        scrub: 2
       }
     })
     gsap.from(".about-info-1 p:nth-child(3)", {
@@ -168,7 +168,7 @@ document.addEventListener("DOMContentLoaded", () => {
         scroller: "body",
         start: "top 80%",
         end: "top 30%",
-        scrub: 3
+        scrub: 2
       }
     })
     gsap.to(".line", {
@@ -178,15 +178,16 @@ document.addEventListener("DOMContentLoaded", () => {
         scroller: "body",
         start: "10% 90%",
         end: "100% 10%",
-        scrub: 3
+        scrub: 2
       }
     })
   }
   const services_section_animations = () => {
     const circle = document.querySelector(".hover-effect")
     const tl = gsap.timeline({ paused: true })
+    const tl2 = gsap.timeline({ paused: true })
     const section_3 = document.querySelector("#section-3")
-    const open_button = document.querySelector(".open-content")
+    const open_button = document.querySelector(".open-button")
     const box_holder = document.querySelector(".box-holder")
     const background_container = document.querySelector(
       ".section-3-background"
@@ -237,16 +238,61 @@ document.addEventListener("DOMContentLoaded", () => {
         yoyo: true
       }
     })
+    tl2.to(".services-contents", {
+      display: "grid",
+      duration: .25
+    })
+    tl2.to(".services-contents .services-heading", {
+      opacity: 1,
+      duration: .25
+    })
+    tl2.to(".content-card", {
+      height: "100%",
+      opacity: 1,
+      duration: .75,
+      stagger: {
+        from: "random",
+        grid: "auto",
+        amount: .5,
+      }
+    })
+    tl2.to(".content-card i", {
+      opacity: 1,
+      duration: .75,
+      stagger: {
+        from: "random",
+        grid: "auto",
+        amount: .5
+      }
+    })
+    tl2.to(".content-card p", {
+      x: 0,
+      opacity: 1,
+      duration: .75,
+      stagger: {
+        from: "random",
+        grid: "auto",
+        amount: .5
+      }
+    })
     open_button.addEventListener("click", () => {
       tl.play()
+      gsap.to(open_button, {
+        opacity: 0,
+        duration: .5,
+      })
       tl.eventCallback("onComplete", () => {
         if (!isRunning) {
           isRunning = true
-          runAnimation()
+          circle.style.opacity = 1
+            runAnimation()
+            if (!tl2.isActive()) {
+              tl2.play()
+            }
         }
         else {
           return
-        }
+        } 
       })
     })
   }
@@ -282,8 +328,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const middleX = width / 2
       const middleY = height / 2
 
-      const offsetX = ((x - middleX) / middleX) * 30
-      const offsetY = ((y - middleY) / middleY) * 30
+      const offsetX = ((x - middleX) / middleX) * 20
+      const offsetY = ((y - middleY) / middleY) * 20
 
       element.style.setProperty("--rotateX", -offsetY + "deg")
       element.style.setProperty("--rotateY", offsetX + "deg")
