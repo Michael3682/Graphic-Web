@@ -82,6 +82,26 @@ document.addEventListener("DOMContentLoaded", () => {
         end: "100% 100%"
       },
     })
+    gsap.to(".nav-bar i:nth-child(1)", {
+      rotate: 360,
+      scrollTrigger: {
+        trigger: "body",
+        scroller: "body",
+        scrub: 3,
+        start: ".1% 0%",
+        end: "100% 100%"
+      },
+    })
+    gsap.to(".nav-bar i:nth-child(2)", {
+      rotate: -360,
+      scrollTrigger: {
+        trigger: "body",
+        scroller: "body",
+        scrub: 3,
+        start: ".1% 0%",
+        end: "100% 100%"
+      },
+    })
   }
   const about_section_animations = () => {
     const card_holders_array = document.querySelectorAll(".card-holder")
@@ -183,15 +203,15 @@ document.addEventListener("DOMContentLoaded", () => {
     })
   }
   const services_section_animations = () => {
-    const circle = document.querySelector(".hover-effect")
     const tl = gsap.timeline({ paused: true })
     const tl2 = gsap.timeline({ paused: true })
+    const tl3 = gsap.timeline({ paused: true })
+    const circle = document.querySelector(".hover-effect")
     const section_3 = document.querySelector("#section-3")
-    const open_button = document.querySelector(".open-button")
     const box_holder = document.querySelector(".box-holder")
-    const background_container = document.querySelector(
-      ".section-3-background"
-    )
+    const open_button = document.querySelector(".open-button")
+    const content_card = document.querySelectorAll(".content-card")
+    const background_container = document.querySelector(".section-3-background")
     const coords = { x: 0, y: 0 }
     let isRunning = false
     let total_cloned_box_holder = 199
@@ -273,8 +293,24 @@ document.addEventListener("DOMContentLoaded", () => {
         from: "random",
         grid: "auto",
         amount: .5
+      },
+      onComplete: () => {
+        gsap.to(".content-card", {
+          "--opacity": 1,
+          duration: .1
+        })
       }
     })
+    tl3.to(open_button, {
+      border: "1px solid hsla(0, 0%, 50%, 0.5)",
+      duration: 0.25
+    })
+    open_button.onmouseover = () => {
+      tl3.play()
+    }
+    open_button.onmouseout = () => {
+      tl3.reverse()
+    }
     open_button.addEventListener("click", () => {
       tl.play()
       gsap.to(open_button, {
@@ -293,6 +329,22 @@ document.addEventListener("DOMContentLoaded", () => {
         else {
           return
         } 
+      })
+    })
+    content_card.forEach(card => {
+      card.addEventListener("mouseover", () => {
+        gsap.to(".content-card:hover", {
+          "--percentage": "100%",
+          duration: .25,
+          ease: "power1.inOut"
+        })
+      })
+      card.addEventListener("mouseout", () => {
+        gsap.to(".content-card", {
+          "--percentage": "0%",
+          duration: .25,
+          ease: "power1.inOut"
+        })
       })
     })
   }

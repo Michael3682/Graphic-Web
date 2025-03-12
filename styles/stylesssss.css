@@ -43,7 +43,7 @@
 @property --percentage {
     syntax: '<percentage>';
     initial-value: 0%;
-    inherits: false;
+    inherits: true;
 }
 @property --number {
     syntax: '<number>';
@@ -66,6 +66,9 @@
     cursor: none;
     letter-spacing: 1.2px;
     box-sizing: border-box;
+}
+*::selection {
+    background-color: var(--cube-image-color-hovered);
 }
 body {
     margin: 0;
